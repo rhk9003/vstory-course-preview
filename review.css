@@ -1,0 +1,93 @@
+/* Local copy-review controls, isolated from the landing-page theme. */
+#copy-review-root {
+  --review-ink: #555555;
+  --review-blue: #6d7686;
+  --review-line: #d9dde3;
+  font-family: "Noto Sans TC", sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--review-ink);
+}
+#copy-review-root *, #copy-review-root *::before, #copy-review-root *::after { box-sizing: border-box; }
+#copy-review-root [hidden] { display: none !important; }
+#copy-review-root button, #copy-review-root input, #copy-review-root textarea { font: inherit; letter-spacing: normal; }
+#copy-review-root button { margin: 0; min-width: 0; min-height: 40px; border: 1px solid var(--review-line); border-radius: 5px; padding: 8px 13px; background: #fff; color: var(--review-ink); cursor: pointer; line-height: 1.5; text-transform: none; box-shadow: none; }
+#copy-review-root button:hover { background: #efefef; }
+#copy-review-root button:disabled { opacity: .5; cursor: not-allowed; }
+#copy-review-root :focus-visible { outline: 3px solid #6d7686; outline-offset: 3px; }
+#copy-review-root h2, #copy-review-root h3, #copy-review-root p { margin: 0; }
+#copy-review-root h2 { font: 600 20px/1.5 "Noto Sans TC", sans-serif; color: #555; }
+#copy-review-root .review-button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; text-align: center; text-decoration: none; }
+#copy-review-root .review-primary { background: var(--review-blue); border-color: var(--review-blue); color: #fff; }
+#copy-review-root .review-primary:hover { background: #555; border-color: #555; color: #fff; }
+#copy-review-root .review-ghost { background: transparent; }
+#copy-review-root .review-danger { color: #924747; border-color: #dbc9c9; }
+#copy-review-root .review-danger:hover { background: #f8eeee; }
+#copy-review-root .review-launcher { position: fixed; right: 24px; bottom: 24px; z-index: 90; display: flex; align-items: center; gap: 9px; padding: 12px 18px; background: #6d7686; color: #fff; border-color: #6d7686; box-shadow: 0 5px 24px #33333320; font-weight: 600; }
+#copy-review-root .review-launcher:hover { background: #555; color: #fff; }
+body.review-active #copy-review-root .review-launcher { display: none; }
+body.review-active .mobile-cta { display: none !important; }
+body.review-active [data-copy-id] { cursor: text; }
+body.review-active [data-copy-id]:hover { outline: 2px solid #a8b5cd; outline-offset: 4px; background-color: #a8b5cd12; }
+mark.review-mark { color: inherit; background: #f6eab8; padding: 1px 0; border-radius: 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+#copy-review-root .review-dock { position: fixed; inset: auto 0 0; z-index: 110; display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 78px; padding: 14px max(24px, calc((100vw - 1200px) / 2)); padding-bottom: max(14px, env(safe-area-inset-bottom)); background: #fff; border-top: 1px solid var(--review-line); box-shadow: 0 -5px 30px #3333330c; }
+#copy-review-root .review-dock-copy { min-width: 0; }
+#copy-review-root .review-dock-copy strong { display: block; font-size: 15px; color: #555; }
+#copy-review-root .review-dock-copy small { display: block; margin-top: 2px; color: #6d7686; font-size: 12px; }
+#copy-review-root .review-dock-actions { display: flex; align-items: center; flex-shrink: 0; flex-wrap: wrap; gap: 8px; }
+#copy-review-root .review-panel { position: fixed; z-index: 100; top: 16px; right: 16px; bottom: 94px; width: min(400px, calc(100vw - 32px)); overflow: auto; overscroll-behavior: contain; padding: 22px; background: #fff; border: 1px solid var(--review-line); border-radius: 8px; box-shadow: 0 12px 50px #33333326; }
+#copy-review-root .review-panel-head, #copy-review-root .review-dialog-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+#copy-review-root .review-panel-head > button, #copy-review-root .review-dialog-head > button { flex-shrink: 0; padding: 6px 10px; min-width: 40px; background: #f7f7f7; }
+#copy-review-root .review-help { font-size: 13px; line-height: 1.8; color: #6d7686; margin-bottom: 16px; }
+#copy-review-root .review-status { padding: 9px 12px; margin-bottom: 14px; border-radius: 4px; background: #f0f2f5; font-size: 12px; }
+#copy-review-root .review-list { display: grid; gap: 14px; padding: 0; margin: 0; }
+#copy-review-root .review-item { min-width: 0; border: 1px solid var(--review-line); border-radius: 5px; padding: 15px; background: #fff; overflow-wrap: anywhere; }
+#copy-review-root .review-item-label { font-size: 12px; font-weight: 600; letter-spacing: .03em; color: #6d7686; margin-bottom: 9px; }
+#copy-review-root .review-item-original { font-size: 13px; color: #777; background: #f7f7f7; border-left: 2px solid #b1b9c6; padding: 8px 10px; white-space: pre-wrap; margin: 8px 0 10px; }
+#copy-review-root .review-item-replacement { font-size: 14px; white-space: pre-wrap; margin: 8px 0; }
+#copy-review-root .review-item-actions { display: flex; flex-wrap: wrap; gap: 7px; padding-top: 10px; }
+#copy-review-root .review-item-actions button { min-height: 34px; padding: 5px 10px; font-size: 12px; }
+#copy-review-root .review-empty { padding: 32px 16px; text-align: center; color: #6d7686; border: 1px dashed #b1b9c6; border-radius: 5px; background: #f7f7f7; }
+#copy-review-root .review-export-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; padding-top: 18px; border-top: 1px solid var(--review-line); }
+#copy-review-root .review-export-actions button { flex: 1 1 120px; }
+#copy-review-root .review-dialog { width: min(540px, calc(100% - 32px)); max-height: 85vh; max-height: 85dvh; margin: auto; padding: 26px; overflow: auto; overscroll-behavior: contain; background: #fff; color: var(--review-ink); border: 1px solid var(--review-line); border-radius: 8px; box-shadow: 0 18px 75px #33333333; font: inherit; }
+#copy-review-root .review-dialog::backdrop { background: #3d445478; backdrop-filter: blur(2px); }
+#copy-review-root .review-field { display: grid; gap: 7px; margin: 18px 0; }
+#copy-review-root .review-field label { display: block; font-weight: 600; font-size: 13px; }
+#copy-review-root .review-field textarea, #copy-review-root .review-field input:not([type="checkbox"]) { display: block; width: 100%; min-width: 0; padding: 11px 12px; color: #555; background: #fff; border: 1px solid #b1b9c6; border-radius: 4px; box-shadow: none; }
+#copy-review-root .review-field textarea { min-height: 150px; resize: vertical; line-height: 1.8; }
+#copy-review-root input[type="checkbox"] { accent-color: #6d7686; width: 17px; height: 17px; vertical-align: middle; margin-right: 6px; }
+#copy-review-root .review-original { margin: 12px 0 18px; max-height: 150px; overflow: auto; padding: 12px 14px; border-left: 3px solid #b1b9c6; background: #f7f7f7; color: #6d7686; font: inherit; font-size: 13px; white-space: pre-wrap; overflow-wrap: anywhere; }
+#copy-review-root .review-dialog-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 9px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--review-line); }
+#copy-review-root .review-selection-button { position: fixed; z-index: 95; max-width: calc(100vw - 24px); background: #6d7686; border-color: #6d7686; color: #fff; padding: 9px 14px; box-shadow: 0 4px 18px #33333326; font-weight: 600; }
+#copy-review-root .review-selection-button:hover { color: #fff; background: #555; }
+#copy-review-root .review-toast { position: fixed; z-index: 120; top: 115px; left: 50%; transform: translateX(-50%); max-width: calc(100vw - 32px); width: max-content; padding: 11px 17px; border: 1px solid var(--review-line); border-radius: 5px; background: #fff; color: #555; box-shadow: 0 5px 25px #33333320; text-align: center; pointer-events: none; }
+#copy-review-root .review-error { color: #924747; font-size: 13px; margin-top: 8px; }
+#copy-review-root .review-saved { color: #536b59; font-size: 13px; }
+#copy-review-root .review-warning { padding: 10px 12px; margin: 12px 0; background: #f8f3e6; border: 1px solid #e7ddbf; border-radius: 4px; color: #6f6243; font-size: 12px; }
+@media (max-width: 767px) {
+  #copy-review-root .review-launcher { right: 14px; bottom: calc(84px + env(safe-area-inset-bottom)); padding: 10px 14px; font-size: 13px; }
+  #copy-review-root .review-dock { min-height: 82px; gap: 10px; padding: 10px 12px max(10px, env(safe-area-inset-bottom)); flex-wrap: wrap; }
+  #copy-review-root .review-dock-copy { flex: 1 1 100%; display: flex; align-items: baseline; gap: 10px; }
+  #copy-review-root .review-dock-copy strong { font-size: 13px; white-space: nowrap; }
+  #copy-review-root .review-dock-copy small { font-size: 11px; line-height: 1.5; }
+  #copy-review-root .review-dock-actions { width: 100%; gap: 6px; }
+  #copy-review-root .review-dock-actions button { flex: 1 1 0; min-height: 36px; padding: 7px 6px; font-size: 12px; }
+  #copy-review-root .review-panel { top: auto; right: 12px; bottom: calc(114px + env(safe-area-inset-bottom)); left: 12px; width: auto; max-height: 65vh; max-height: 65dvh; padding: 18px; }
+  #copy-review-root .review-dialog { padding: 20px; }
+  #copy-review-root .review-dialog-head h2 { font-size: 18px; }
+  #copy-review-root .review-field textarea, #copy-review-root .review-field input:not([type="checkbox"]) { font-size: 16px; }
+  #copy-review-root .review-toast { top: 105px; font-size: 13px; }
+  #copy-review-root .review-item { padding: 13px; }
+}
+@media (max-width: 359px) {
+  #copy-review-root .review-dock-copy { gap: 6px; }
+  #copy-review-root .review-dock-copy small { font-size: 10px; }
+  #copy-review-root .review-panel { max-height: 61vh; }
+  #copy-review-root .review-dialog-actions button { flex: 1 1 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #copy-review-root *, #copy-review-root *::before, #copy-review-root *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+body.review-active { padding-bottom: max(110px, calc(100px + env(safe-area-inset-bottom))); }
+body.review-active [data-copy-id]:focus-visible { outline: 2px solid #6d7686; outline-offset: 4px; }
