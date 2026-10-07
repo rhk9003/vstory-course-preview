@@ -2,7 +2,9 @@
   'use strict';
   if (document.body.dataset.version !== 'a' || !window.VStoryReviewCore) return;
   const core = window.VStoryReviewCore;
-  const storageKey = 'vstory-copy-review:version-a:2026-10-05';
+  const storageKey = 'vstory-copy-review:version-a:2026-10-07';
+  const previousStorageKey = 'vstory-copy-review:version-a:2026-10-05';
+  let previousDraft = null;
   const blockElements = [...document.querySelectorAll('[data-copy-id]')];
   const originalTabIndexes = new Map(blockElements.map(el => [el,el.getAttribute('tabindex')]));
   const blocks = blockElements.map(el => ({id:el.dataset.copyId, text:el.textContent, label:el.dataset.copyLabel}));
@@ -20,6 +22,14 @@
     loadWarning = '此瀏覽器的舊草稿無法讀取，或不允許本機儲存。這次修改請完成後下載備份；舊資料不會被覆蓋。';
   }
 
+  try {
+    const raw = localStorage.getItem(previousStorageKey);
+    if (raw) {
+      const old = JSON.parse(raw);
+      if (old.schema === 'vstory-copy-review' && old.page === 'version-a' && Array.isArray(old.comments) && old.comments.length) previousDraft = raw;
+    }
+  } catch { /* Leave old browser data untouched. */ }
+
   const root = document.createElement('div');
   root.id = 'copy-review-root';
   root.innerHTML = `
@@ -32,6 +42,8 @@
       <div class="review-panel-head"><h2 id="review-list-title" tabindex="-1">你的修改清單</h2><button type="button" data-action="close-list" aria-label="收起修改清單">×</button></div>
       <p class="review-help">原網頁會保留原文，已提出修改的地方會以淡黃色標記。</p>
       <p class="review-status"></p><p class="review-warning" hidden></p>
+      <p class="review-help review-previous-note" hidden>目前是 10/7 客戶改稿版。上一版的草稿已保留，可下載備份查閱；新修改會另外儲存。</p>
+      <button type="button" data-action="previous-backup" hidden>下載上一版草稿</button>
       <div class="review-list"></div>
       <button type="button" data-action="undo" hidden>復原剛才刪除的修改</button>
       <div class="review-export-actions"><button type="button" class="review-primary" data-action="export">下載修改單</button><button type="button" data-action="copy">複製給 Dennis</button><button type="button" data-action="backup">下載備份</button><button type="button" data-action="import">匯入備份</button></div>
@@ -76,6 +88,8 @@
     }
   }
   function render() {
+    $('.review-previous-note').hidden = !previousDraft;
+    $('[data-action="previous-backup"]').hidden = !previousDraft;
     $('[data-action="list"]').textContent=`修改清單 (${comments.length})`;
     $('.review-launcher').textContent=comments.length?`✎ 文字修改 (${comments.length})`:'✎ 提出文字修改';
     $('.review-status').textContent=storageAvailable?'草稿保存在此瀏覽器；尚未傳送給 Dennis。':'目前僅保留在這個分頁，請下載後交給 Dennis。';
@@ -204,6 +218,7 @@
     if(action==='delete'&&item){undoComment=item;comments=comments.filter(c=>c.id!==item.id);persist();render();toast('已刪除，可在修改清單中復原。');}
     if(action==='undo'&&undoComment){try{comments=core.validateDocument(pack([...comments,undoComment]),blocks);undoComment=null;persist();render();toast('已復原。');}catch(error){toast(error.message);}}
     if(action==='export')exportReview();
+    if(action==='previous-backup'&&previousDraft){download('維斯故事-A版-上一版修改備份.json',previousDraft,'application/json');toast('上一版草稿備份已下載，可保留供後續對照。');}
     if(action==='backup'){download('維斯故事-A版-修改備份.json',JSON.stringify(pack(sorted()),null,2),'application/json');toast('備份已下載，可在另一台裝置匯入繼續修改。');}
     if(action==='import')$('#review-import').click();
     if(action==='copy'){

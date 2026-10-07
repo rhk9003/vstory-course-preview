@@ -10,7 +10,7 @@
     schema: 'vstory-copy-review',
     version: 1,
     page: 'version-a',
-    revision: 'vstory-a-2026-10-05'
+    revision: 'vstory-a-2026-10-07'
   });
 
   function fail(message) {
